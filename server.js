@@ -16,4 +16,14 @@ let tasks = [];
 io.on('connection', (socket) => {
   console.log('New client! Its id – ' + socket.id);
   socket.emit('updateData', tasks);
+
+  socket.on('addTask', (taskData) => {
+    tasks.push(taskData);
+    socket.broadcast.emit('addTask', taskData);
+  });
+
+  socket.on('removeTask', (taskId) => {
+    tasks = tasks.filter(task => task.id !== taskId);
+    socket.broadcast.emit('removeTask', taskId);
+  });
 });
