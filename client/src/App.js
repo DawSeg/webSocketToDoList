@@ -37,8 +37,12 @@ function App() {
   };
 
   const addTask = (newTask) => {
-    setTasks(prevTasks => [...prevTasks, newTask]);
-    setTaskName('');
+    if (taskName === '') {
+      alert('Wypełnij pole!')
+    } else {
+      setTasks(prevTasks => [...prevTasks, newTask]);
+      setTaskName('');
+    };
   };
 
   const removeTask = (taskId, locallyTriggered = true) => {
